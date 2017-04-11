@@ -1,0 +1,23 @@
+homepage:
+    path:      /
+    defaults:  { _controller: AppBundle:My:index }
+    requirements:
+
+create_new:
+    path:       /create
+    defaults: { _controller: AppBundle:My:create }
+    requirements:
+edit:
+    path:       /edit/{id}
+    defaults: { _controller: AppBundle:My:edit }
+    requirements:
+
+delete:
+    path:       /delete/{id}
+    defaults: { _controller: AppBundle:My:delete }
+    requirements:
+
+details:
+    path:       /details/{id}
+    defaults: { _controller: AppBundle:My:details }
+    requirements:

@@ -1,0 +1,52 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block title %}Details Page{% endblock title %}
+{% block javascripts %}
+    <style>
+        td{
+            border-right: 1px solid lightsalmon;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    {#{{ dump(user) }}#}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Avatar</th>
+            <th>Name</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>E-mail</th>
+            <th>Phone</th>
+            <th>Bio</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tr>
+        {% for value in user %}
+            <th scope="row">{{ value['id'] }}</th>
+            <td><a href="{{ value['linkAvatar'] }}" target="_blank"><img style="width:100px;height: 100px;" src="{{ value['linkAvatar'] }}"></a></td>
+            <td>{{ value['name'] }}</td>
+            <td>{{ value['login'] }}</td>
+            <td>{{ value['passwordHash'] }}</td>
+            <td>{{ value['email'] }}</td>
+            <td>{{ value['phoneNumber'] }}</td>
+            <td>{% autoescape false %}{{ value['bio'] }}{% endautoescape %}</td>
+            <td>{{ value['address'] }}</td>
+            <td>{{ value['city'] }}</td>
+            <td>{{ value['country'] }}</td>
+            <td>
+                <a href="{{ path('edit', {'id': value['id']}) }}" class="btn btn-warning">edit</a>
+                <a href="{{ path('delete', {'id': value['id']}) }}" class="btn btn-danger">delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <a href="{{ path('homepage') }}" class="btn btn-success">Main</a>
+{% endblock body %}

@@ -1,10 +1,8 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Users
@@ -14,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Users
 {
+
     /**
      * @var int
      *
@@ -22,14 +21,12 @@ class Users
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * One User has only One User_profile.
      * One-To-One, Bidirectional
      * @ORM\OneToOne(targetEntity="User_profile", mappedBy="users")
      */
     private $user_profile;
-
     /**
      * @Assert\Type("string", message="The value {{ value }} is not a valid {{ type }}.")
      * @var string
@@ -37,28 +34,24 @@ class Users
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-
     /**
      * @var string
      *
      * @ORM\Column(name="login", type="string", length=255)
      */
     private $login;
-
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
-
     /**
      * @var string
      *
      * @ORM\Column(name="password_hash", type="text")
      */
     private $passwordHash;
-
 
     /**
      * Get id
@@ -80,7 +73,6 @@ class Users
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -104,7 +96,6 @@ class Users
     public function setLogin($login)
     {
         $this->login = $login;
-
         return $this;
     }
 
@@ -128,7 +119,6 @@ class Users
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -151,9 +141,7 @@ class Users
      */
     public function setPasswordHash($passwordHash)
     {
-
         $this->passwordHash = $passwordHash;
-
         return $this;
     }
 
@@ -177,7 +165,6 @@ class Users
     public function setUserProfile(\AppBundle\Entity\User_profile $userProfile = null)
     {
         $this->user_profile = $userProfile;
-
         return $this;
     }
 

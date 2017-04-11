@@ -6,26 +6,26 @@
     <script src="{{ asset('Resources/vendor/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('Resources/vendor/ckeditor/adapters/jquery.js') }}"></script>
     <style>
-        #hiddenTypeAvatar1, #hiddenTypeAvatar2{
+        #hiddenTypeAvatar1, #hiddenTypeAvatar2 {
             display: none;
         }
     </style>
     <script>
-    $(document).ready(function() {
-        $("#form_phone").inputmask("+3(9999)9999999");
-        $("#button1").click(function(){
-            $("#hiddenTypeAvatar1").css("display","block");
-            $("#hiddenTypeAvatar2").css("display","none");
-            $("#form_avatar2").val('');
-        });
-        $("#button2").click(function(){
-            $("#hiddenTypeAvatar2").css("display","block");
-            $("#hiddenTypeAvatar1").css("display","none");
-            $("#form_avatar").val('');
-        });
+        $(document).ready(function () {
+            $("#form_phone").inputmask("+3(9999)9999999");
+            $("#button1").click(function () {
+                $("#hiddenTypeAvatar1").css("display", "block");
+                $("#hiddenTypeAvatar2").css("display", "none");
+                $("#form_avatar2").val('');
+            });
+            $("#button2").click(function () {
+                $("#hiddenTypeAvatar2").css("display", "block");
+                $("#hiddenTypeAvatar1").css("display", "none");
+                $("#form_avatar").val('');
+            });
 
-    });
-</script>
+        });
+    </script>
 {% endblock %}
 {% block body %}
     Create Page
@@ -35,9 +35,6 @@
     {% endif %}
 
     {% if form is defined %}
-        {#{{ form_start(form) }}#}
-        {#{{ form_widget(form) }}#}
-        {#{{ form_end(form) }}#}
         {{ form_start(form) }}
         <div><label for="form_name" class='required'>Name</label>{{ form_widget(form.name) }}</div>
         <div><label for="form_login" class='required'>Login</label>{{ form_widget(form.login) }}</div>

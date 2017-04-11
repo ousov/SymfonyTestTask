@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Repository;
 
 /**
@@ -10,16 +9,12 @@ namespace AppBundle\Repository;
  */
 class User_avatarRepository extends \Doctrine\ORM\EntityRepository
 {
+
     public function findAvatarById($id)
     {
         return $this->getEntityManager()
             ->createQuery(
-//                'SELECT user_avatar.linkAvatar
-//                 FROM AppBundle:User_avatar user_avatar, AppBundle:Users users, AppBundle:User_profile user_profile
-//                 WHERE users.id=user_profile.users
-//                 AND user_avatar.id=user_profile.user_avatar
-//                 AND users.id=:id')
-                  'SELECT user_avatar.id 
+                'SELECT user_avatar.id 
                    FROM AppBundle:User_profile user_profile, AppBundle:Users users, AppBundle:User_avatar user_avatar
                    WHERE users.id=user_profile.users 
                    AND user_avatar.id=user_profile.user_avatar

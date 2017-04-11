@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User_phones
 {
+
     /**
      * @var int
      *
@@ -20,21 +20,18 @@ class User_phones
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * One User_avatar has only One User_profile.
      * One-To-One, Bidirectional
      * @ORM\OneToOne(targetEntity="User_profile", mappedBy="user_phone")
      */
     private $user_profile;
-
     /**
      * @var int
      *
      * @ORM\Column(name="phone_number", type="string", length=255)
      */
     private $phoneNumber;
-
 
     /**
      * Get id
@@ -56,7 +53,6 @@ class User_phones
     public function setPhoneNumber($phoneNumber)
     {
         $this->phoneNumber = $phoneNumber;
-
         return $this;
     }
 
@@ -80,7 +76,6 @@ class User_phones
     public function setUserPhone(\AppBundle\Entity\User_profile $userPhone = null)
     {
         $this->user_phone = $userPhone;
-
         return $this;
     }
 
@@ -104,7 +99,6 @@ class User_phones
     public function setUserProfile(\AppBundle\Entity\User_profile $userProfile = null)
     {
         $this->user_profile = $userProfile;
-
         return $this;
     }
 

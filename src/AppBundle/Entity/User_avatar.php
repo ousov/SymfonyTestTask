@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User_avatar
 {
+
     /**
      * @var int
      *
@@ -20,21 +20,18 @@ class User_avatar
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * One User_avatar has only One User_profile.
      * One-To-One, Bidirectional
      * @ORM\OneToOne(targetEntity="User_profile", mappedBy="user_avatar")
      */
     private $user_profile;
-
     /**
      * @var string
      *
      * @ORM\Column(name="link_avatar", type="text")
      */
     private $linkAvatar;
-
 
     /**
      * Get id
@@ -56,7 +53,6 @@ class User_avatar
     public function setLinkAvatar($linkAvatar)
     {
         $this->linkAvatar = $linkAvatar;
-
         return $this;
     }
 
@@ -80,7 +76,6 @@ class User_avatar
     public function setUserProfile(\AppBundle\Entity\User_profile $userProfile = null)
     {
         $this->user_profile = $userProfile;
-
         return $this;
     }
 

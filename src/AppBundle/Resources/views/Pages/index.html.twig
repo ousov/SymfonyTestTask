@@ -17,18 +17,18 @@
             <th style="width: 80px;">Actions</th>
         </tr>
         </thead>
-        {#{{ dump(users) }}#}
         {% for user in users %}
-        <tr>
-            <td scope="row">{{ user['id'] }}</td>
-            <td><a href="{{ user['linkAvatar'] }}" target="_blank"><img style="width:50px;height: 50px;" src="{{ user['linkAvatar'] }}"></a></td>
-            <td>{{ user['name'] }}</td>
-            <td>{{ user['login'] }}</td>
-            <td>{{ user['email'] }}</td>
-            <td>
-                <a href="{{ path('details', {'id': user['id']}) }}" class="btn btn-info">details</a>
-            </td>
-        </tr>
+            <tr>
+                <td scope="row">{{ user['id'] }}</td>
+                <td><a href="{{ user['linkAvatar'] }}" target="_blank"><img style="width:50px;height: 50px;"
+                                                                            src="{{ user['linkAvatar'] }}"></a></td>
+                <td>{{ user['name'] }}</td>
+                <td>{{ user['login'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>
+                    <a href="{{ path('details', {'id': user['id']}) }}" class="btn btn-info">details</a>
+                </td>
+            </tr>
         {% endfor %}
     </table>
     <div class="navigation text-center">
@@ -37,4 +37,3 @@
     </div>
     <a href="{{ path('create_new') }}" class="btn btn-success">CREATE</a>
 {% endblock body %}
-{#{{ user['linkAvatar'] }}#}

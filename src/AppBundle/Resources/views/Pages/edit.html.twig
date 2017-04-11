@@ -5,21 +5,21 @@
     <script src="{{ asset('Resources/vendor/ckeditor/adapters/jquery.js') }}"></script>
     <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
     <style>
-        #hiddenTypeAvatar1, #hiddenTypeAvatar2{
+        #hiddenTypeAvatar1, #hiddenTypeAvatar2 {
             display: none;
         }
     </style>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#form_phone").inputmask("+3(9999)9999999");
-            $("#button1").click(function(){
-                $("#hiddenTypeAvatar1").css("display","block");
-                $("#hiddenTypeAvatar2").css("display","none");
+            $("#button1").click(function () {
+                $("#hiddenTypeAvatar1").css("display", "block");
+                $("#hiddenTypeAvatar2").css("display", "none");
                 $("#form_avatar2").val('');
             });
-            $("#button2").click(function(){
-                $("#hiddenTypeAvatar2").css("display","block");
-                $("#hiddenTypeAvatar1").css("display","none");
+            $("#button2").click(function () {
+                $("#hiddenTypeAvatar2").css("display", "block");
+                $("#hiddenTypeAvatar1").css("display", "none");
                 $("#form_avatar").val('');
             });
         });
@@ -34,14 +34,23 @@
     {% if form is defined %}
 
         {{ form_start(form) }}
-        <div><label for="form_name" class='required'>Name</label>{{ form_widget(form.name, {'value' : user[0]['name']}) }}</div>
-        <div><label for="form_login" class='required'>Login</label>{{ form_widget(form.login, {'value' : user[0]['login']}) }}</div>
-        <div><label for="form_email" class='required'>E-mail</label>{{ form_widget(form.email, {'value' : user[0]['email']}) }}</div>
+        <div><label for="form_name"
+                    class='required'>Name</label>{{ form_widget(form.name, {'value' : user[0]['name']}) }}</div>
+        <div><label for="form_login"
+                    class='required'>Login</label>{{ form_widget(form.login, {'value' : user[0]['login']}) }}</div>
+        <div><label for="form_email"
+                    class='required'>E-mail</label>{{ form_widget(form.email, {'value' : user[0]['email']}) }}</div>
         <div>{{ form_widget(form.passwordHash) }}</div>
-        <div><label for="form_bio" class='required'>Bio</label>{{ form_widget(form.bio, {'value' : user[0]['bio']}) }}</div>
-        <div><label for="form_address" class='required'>Address</label>{{ form_widget(form.address, {'value' : user[0]['address']}) }}</div>
-        <div><label for="form_City" class='required'>City</label>{{ form_widget(form.City, {'value' : user[0]['city']}) }}</div>
-        <div><label for="form_Country" class='required'>Country</label>{{ form_widget(form.Country, {'value' : user[0]['country']}) }}</div>
+        <div><label for="form_bio" class='required'>Bio</label>{{ form_widget(form.bio, {'value' : user[0]['bio']}) }}
+        </div>
+        <div><label for="form_address"
+                    class='required'>Address</label>{{ form_widget(form.address, {'value' : user[0]['address']}) }}
+        </div>
+        <div><label for="form_City"
+                    class='required'>City</label>{{ form_widget(form.City, {'value' : user[0]['city']}) }}</div>
+        <div><label for="form_Country"
+                    class='required'>Country</label>{{ form_widget(form.Country, {'value' : user[0]['country']}) }}
+        </div>
 
         <p><strong>Аватар</strong></p>
         <div><img style="width: 100px;height: 100px;" src="{{ user[0]['linkAvatar'] }}"></div>
@@ -50,9 +59,8 @@
         <div id="hiddenTypeAvatar1"><label for="form_avatar">Avatar</label>{{ form_widget(form.avatar) }}</div>
         <div id="hiddenTypeAvatar2"><label for="form_avatar2">Avatar_File</label>{{ form_widget(form.avatar2) }}</div>
 
-
-        {#<div><label for="form_avatar" class='required'>Avatar</label>{{ form_widget(form.avatar, {'value' : user[0]['linkAvatar']}) }}</div>#}
-        <div><label for="form_phone" class='required'>Phone Number</label>{{ form_widget(form.phone, {'value' : user[0]['phoneNumber']}) }}</div>
+        <div><label for="form_phone" class='required'>Phone
+                Number</label>{{ form_widget(form.phone, {'value' : user[0]['phoneNumber']}) }}</div>
 
         {{ form_end(form) }}
     {% endif %}

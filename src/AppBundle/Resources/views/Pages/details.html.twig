@@ -2,13 +2,12 @@
 {% block title %}Details Page{% endblock title %}
 {% block javascripts %}
     <style>
-        td{
+        td {
             border-right: 1px solid lightsalmon;
         }
     </style>
 {% endblock %}
 {% block body %}
-    {#{{ dump(user) }}#}
     <table class="table table-striped">
         <thead>
         <tr>
@@ -27,9 +26,10 @@
         </tr>
         </thead>
         <tr>
-        {% for value in user %}
+            {% for value in user %}
             <th scope="row">{{ value['id'] }}</th>
-            <td><a href="{{ value['linkAvatar'] }}" target="_blank"><img style="width:100px;height: 100px;" src="{{ value['linkAvatar'] }}"></a></td>
+            <td><a href="{{ value['linkAvatar'] }}" target="_blank"><img style="width:100px;height: 100px;"
+                                                                         src="{{ value['linkAvatar'] }}"></a></td>
             <td>{{ value['name'] }}</td>
             <td>{{ value['login'] }}</td>
             <td>{{ value['passwordHash'] }}</td>

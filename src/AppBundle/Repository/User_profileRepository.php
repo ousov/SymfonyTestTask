@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Repository;
 
 /**
@@ -10,16 +9,13 @@ namespace AppBundle\Repository;
  */
 class User_profileRepository extends \Doctrine\ORM\EntityRepository
 {
+
     //id User
     public function findProfById($id)
     {
         return $this->getEntityManager()
             ->createQuery(
-//                'SELECT user_profile.bio, user_profile.address, user_profile.City, user_profile.Country
-//                 FROM AppBundle:User_profile user_profile, AppBundle:Users users
-//                 WHERE users.id=user_profile.users
-//                 AND users.id=:id')
-                  'SELECT user_profile.id 
+                'SELECT user_profile.id 
                    FROM AppBundle:User_profile user_profile, AppBundle:Users users 
                    WHERE users.id=user_profile.users 
                    AND users.id=:id')

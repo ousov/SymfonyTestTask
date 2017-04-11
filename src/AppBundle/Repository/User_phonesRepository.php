@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Repository;
 
 /**
@@ -10,15 +9,11 @@ namespace AppBundle\Repository;
  */
 class User_phonesRepository extends \Doctrine\ORM\EntityRepository
 {
+
     public function findPhoneById($id)
     {
         return $this->getEntityManager()
             ->createQuery(
-//                'SELECT user_phones.phoneNumber
-//                 FROM AppBundle:User_phones user_phones, AppBundle:Users users, AppBundle:User_profile user_profile
-//                 WHERE users.id=user_profile.users
-//                 AND user_phones.id=user_profile.user_phone
-//                 AND users.id=:id')
                 'SELECT user_phones.id 
                  FROM AppBundle:User_phones user_phones, AppBundle:Users users, AppBundle:User_profile user_profile 
                  WHERE users.id=user_profile.users 

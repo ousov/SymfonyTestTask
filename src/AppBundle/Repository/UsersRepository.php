@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Repository;
 
 /**
@@ -10,10 +9,10 @@ namespace AppBundle\Repository;
  */
 class UsersRepository extends \Doctrine\ORM\EntityRepository
 {
+
     //select users.id, users.name, users.login, user_avatar.link_avatar, users.login,users.email FROM users, user_profile, user_avatar WHERE users.id=user_profile.user_id AND user_avatar.id=user_profile.avatar_id
     public function getAllUsers()
     {
-
         return $this->getEntityManager()
             ->createQuery(
                 'SELECT users.id, users.name,user_avatar.linkAvatar, users.login, users.email 
@@ -23,6 +22,7 @@ class UsersRepository extends \Doctrine\ORM\EntityRepository
             )
             ->getResult();
     }
+
     //select users.id, users.name, users.login, users.email, users.password_hash,user_profile.bio,user_profile.address, user_profile.City,user_profile.Country, user_phones.phone_number,user_avatar.link_avatar FROM users, user_profile, user_avatar, user_phones WHERE users.id=user_profile.user_id AND user_profile.avatar_id=user_avatar.id AND user_profile.phone_id=user_phones.id AND users.id=2
     public function getUserFullInfoById($id)
     {
@@ -39,10 +39,11 @@ class UsersRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function reNameUserAvatarLink(array $array){
+    public function reNameUserAvatarLink(array $array)
+    {
         foreach ($array as $key => $value) {
             foreach ($value as $item => $mainValue) {
-                if($item == "linkAvatar"){
+                if ($item == "linkAvatar") {
                     $result = substr($mainValue, 0, 6);
                     if ($result !== "http:/" && $result !== "https:") {
                         $array[$key][$item] = "/web/Resources/images/" . $mainValue;
@@ -52,5 +53,4 @@ class UsersRepository extends \Doctrine\ORM\EntityRepository
         }
         return $array;
     }
-
 }

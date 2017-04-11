@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Controller;
 
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Response;
@@ -29,11 +28,11 @@ class MyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:Users')->getUserFullInfoById($id);
         $user = $em->getRepository('AppBundle:Users')->reNameUserAvatarLink($user);
-
         return $this->render('AppBundle:Pages:details.html.twig', array(
             'user' => $user,
         ));
     }
+
     //Функция по удалению пользователя
     public function deleteAction($id, Request $request)
     {
@@ -55,7 +54,6 @@ class MyController extends Controller
         //Перебор массива и разделение на внутренние ссылки к фото и загруженные вручную
         //Переопределение ссылки на фото
         $users = $em->getRepository('AppBundle:Users')->reNameUserAvatarLink($users);
-
         //Paginator
         /**
          * @var $paginator \Knp\Component\Pager\Paginator
@@ -64,10 +62,8 @@ class MyController extends Controller
         $result = $paginator->paginate(
             $users,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 3)
-
+            $request->query->getInt('limit', 5)
         );
-
         return $this->render('AppBundle:Pages:index.html.twig', array(
             'users' => $result,
         ));
@@ -113,12 +109,10 @@ class MyController extends Controller
             ))
             ->add('avatar', TextType::class, array(
                 'required' => false,
-
             ))
             ->add('avatar2', FileType::class, array(
                 'label' => 'Загрузите Фото',
                 'required' => false,
-
             ))
             ->add('phone', TextType::class, array(
                 'attr' => array(
@@ -130,10 +124,8 @@ class MyController extends Controller
         //Проверка возврата Request и подтверждения форм
         //Спасибо PHPStorm, который не находит данные методы в проекте (, но они есть и оно работает согласно докам
         $form_user->handleRequest($request);
-
         if ($form_user->isSubmitted() && $form_user->isValid()) {
             $datas = $form_user->getData();
-//                        var_dump($datas);
             //Проверка на ввод имени
             $i = preg_match('/^[A-Za-z0-9]+$/', $datas['name']);
             if ($i !== 1) {
@@ -143,38 +135,33 @@ class MyController extends Controller
                 ));
             }
             //Если форма валидна заносим основные данные
-
             $em = $this->getDoctrine()->getManager();
-            if($datas['avatar']==NULL && $datas['avatar2']==NULL){
-                $datas['avatar']='Avatar.jpg';
+            if ($datas['avatar'] == null && $datas['avatar2'] == null) {
+                $datas['avatar'] = 'Avatar.jpg';
             }
-
             //Получаем и фильтруем файл :)
-            if($datas['avatar2'] != NULL){
-                $file= $datas['avatar2'];
+            if ($datas['avatar2'] != null) {
+                $file = $datas['avatar2'];
                 $fileExtension = $file->guessExtension();
-                $types = array("jpeg","png","jpg");
-                if (in_array($fileExtension, $types)){
-                    $fileName = md5(uniqid()).'.'.$fileExtension;
+                $types = array("jpeg", "png", "jpg");
+                if (in_array($fileExtension, $types)) {
+                    $fileName = md5(uniqid()) . '.' . $fileExtension;
                     $file->move(
                         $this->getParameter('images_directory'),
                         $fileName
                     );
                     $avatar->setLinkAvatar($fileName);
-                }else{
+                } else {
                     return $this->render('AppBundle:Pages:create.html.twig', array(
                         'form' => $form_user->createView(),
                         'message' => 'Для изображения Аватара можно использовать только jpeg, jpg или png файлы',
                     ));
                 }
-
-            }else if($datas['avatar'] != NULL){
-                $avatar->setLinkAvatar($datas['avatar']);
+            } else {
+                if ($datas['avatar'] != null) {
+                    $avatar->setLinkAvatar($datas['avatar']);
+                }
             }
-
-
-
-
             $phone->setPhoneNumber($datas['phone']);
             $user->setEmail($datas['email']);
             $user->setName($datas['name']);
@@ -193,7 +180,6 @@ class MyController extends Controller
             $em->persist($user);
             $em->persist($user_prof);
             $em->flush();
-
             return $this->redirectToRoute('homepage');
         }
         //Первичный запуск вывода формы
@@ -201,6 +187,7 @@ class MyController extends Controller
             'form' => $form_user->createView(),
         ));
     }
+
     //Функция по редактированию пользователя
     public function editAction($id, Request $request)
     {
@@ -210,18 +197,15 @@ class MyController extends Controller
         $savedValueAvatar = $userToChange[0]['linkAvatar'];
         //Перелинковываем ссылки на изображения для отображения на странице
         $userToChange = $em->getRepository('AppBundle:Users')->reNameUserAvatarLink($userToChange);
-
         //Получаем id для моделей
         $user_profID = $em->getRepository('AppBundle:User_profile')->findProfById($id);
         $user_avatarID = $em->getRepository('AppBundle:User_avatar')->findAvatarById($id);
         $user_phoneID = $em->getRepository('AppBundle:User_phones')->findPhoneById($id);
-
         //Получаем модели для изменения
         $user = $em->getRepository('AppBundle:Users')->find($id);
         $user_prof = $em->getRepository('AppBundle:User_profile')->find($user_profID[0]['id']);
         $user_avatar = $em->getRepository('AppBundle:User_avatar')->find($user_avatarID[0]['id']);
         $user_phone = $em->getRepository('AppBundle:User_phones')->find($user_phoneID[0]['id']);
-
         //Начало создания формы для редактирования
         $form_user = $this->createFormBuilder()
             ->add('name', TextType::class)
@@ -253,12 +237,10 @@ class MyController extends Controller
             ))
             ->add('avatar', TextType::class, array(
                 'required' => false,
-
             ))
             ->add('avatar2', FileType::class, array(
                 'label' => 'Загрузите Фото',
                 'required' => false,
-
             ))
             ->add('phone', TextType::class, array(
                 'attr' => array(
@@ -271,64 +253,59 @@ class MyController extends Controller
         //Проверка на валидность
         $form_user->handleRequest($request);
         if ($form_user->isSubmitted() && $form_user->isValid()) {
-        $datas = $form_user->getData();
-
-        //Проверка на ввод имени
-        $i = preg_match('/^[A-Za-z0-9]+$/', $datas['name']);
-        if ($i !== 1) {
-            return $this->render('AppBundle:Pages:edit.html.twig', array(
-                'message' => 'В имени может содержаться только кирилица',
-                'form' => $form_user->createView(),
-                'user' => $userToChange,
-            ));
-        }
-        //Если форма валидна заносим основные данные
-        $em = $this->getDoctrine()->getManager();
-        //Если пользователь не поменял картинку на аватаре - сохраняем ранее введенную
-            if($datas['avatar']==NULL && $datas['avatar2']==NULL){
-                $datas['avatar']=$savedValueAvatar;
+            $datas = $form_user->getData();
+            //Проверка на ввод имени
+            $i = preg_match('/^[A-Za-z0-9]+$/', $datas['name']);
+            if ($i !== 1) {
+                return $this->render('AppBundle:Pages:edit.html.twig', array(
+                    'message' => 'В имени может содержаться только кирилица',
+                    'form' => $form_user->createView(),
+                    'user' => $userToChange,
+                ));
+            }
+            //Если форма валидна заносим основные данные
+            $em = $this->getDoctrine()->getManager();
+            //Если пользователь не поменял картинку на аватаре - сохраняем ранее введенную
+            if ($datas['avatar'] == null && $datas['avatar2'] == null) {
+                $datas['avatar'] = $savedValueAvatar;
             }
             //Получаем и фильтруем файл :)
-            if($datas['avatar2'] != NULL){
-                $file= $datas['avatar2'];
+            if ($datas['avatar2'] != null) {
+                $file = $datas['avatar2'];
                 $fileExtension = $file->guessExtension();
-                $types = array("jpeg","png","jpg");
-                if (in_array($fileExtension, $types)){
-                    $fileName = md5(uniqid()).'.'.$fileExtension;
+                $types = array("jpeg", "png", "jpg");
+                if (in_array($fileExtension, $types)) {
+                    $fileName = md5(uniqid()) . '.' . $fileExtension;
                     $file->move(
                         $this->getParameter('images_directory'),
                         $fileName
                     );
                     $user_avatar->setLinkAvatar($fileName);
-                }else{
+                } else {
                     return $this->render('AppBundle:Pages:edit.html.twig', array(
                         'user' => $userToChange,
                         'form' => $form_user->createView(),
                         'message' => 'Для изображения Аватара можно использовать только jpeg, jpg или png файлы',
                     ));
                 }
-            }else if($datas['avatar'] != NULL){
-                $user_avatar->setLinkAvatar($datas['avatar']);
+            } else {
+                if ($datas['avatar'] != null) {
+                    $user_avatar->setLinkAvatar($datas['avatar']);
+                }
             }
-
-
-//        $user_avatar->setLinkAvatar($datas['avatar']);
-        $user_phone->setPhoneNumber($datas['phone']);
-        $user->setEmail($datas['email']);
-        $user->setName($datas['name']);
-        $user->setLogin($datas['login']);
-        $user->setPasswordHash($datas['passwordHash']);
-        //Теперь заносим данные в связанную таблицу
-        $user_prof->setAddress($datas['address']);
-        $user_prof->setBio($datas['bio']);
-        $user_prof->setCity($datas['City']);
-        $user_prof->setCountry($datas['Country']);
-
-        $em->flush();
-
-        return $this->redirectToRoute('homepage');
-    }
-
+            $user_phone->setPhoneNumber($datas['phone']);
+            $user->setEmail($datas['email']);
+            $user->setName($datas['name']);
+            $user->setLogin($datas['login']);
+            $user->setPasswordHash($datas['passwordHash']);
+            //Теперь заносим данные в связанную таблицу
+            $user_prof->setAddress($datas['address']);
+            $user_prof->setBio($datas['bio']);
+            $user_prof->setCity($datas['City']);
+            $user_prof->setCountry($datas['Country']);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
         //Это идет на вывод
         return $this->render('AppBundle:Pages:edit.html.twig', array(
             'user' => $userToChange,

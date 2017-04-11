@@ -135,7 +135,7 @@ class MyController extends Controller
             $datas = $form_user->getData();
 //                        var_dump($datas);
             //Проверка на ввод имени
-            $i = preg_match('/^[A-Za-z]+$/', $datas['name']);
+            $i = preg_match('/^[A-Za-z0-9]+$/', $datas['name']);
             if ($i !== 1) {
                 return $this->render('AppBundle:Pages:create.html.twig', array(
                     'message' => 'В имени может содержаться только кирилица',
@@ -274,7 +274,7 @@ class MyController extends Controller
         $datas = $form_user->getData();
 
         //Проверка на ввод имени
-        $i = preg_match('/^[A-Za-z]+$/', $datas['name']);
+        $i = preg_match('/^[A-Za-z0-9]+$/', $datas['name']);
         if ($i !== 1) {
             return $this->render('AppBundle:Pages:edit.html.twig', array(
                 'message' => 'В имени может содержаться только кирилица',
